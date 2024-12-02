@@ -54,10 +54,5 @@ namespace GoodCode
             _score = Mathf.Max(0, _score);
             _onChangeScoreAction?.Invoke(_score);
         }
-        
-        ~ScoreManager()
-        {
-            _onChangeScoreAction = null;
-        }
     }   
 }
