@@ -10,16 +10,24 @@ namespace GoodCode
     {
         private int _score;
         
-        public event Action<int> OnChangeScoreAction; 
+        private Action<int> _onChangeScoreAction;
+        
+        public void AddChangeScoreAction(Action<int> action)
+        {
+            _onChangeScoreAction += action;
+        }
 
         public ScoreManager()
         {
             _score = 0;
         }
         
-        public void Initialize()
+        public void Initialize(Action<int> action)
         {
-            OnChangeScoreAction?.Invoke(_score);
+            _score = 0;
+            _onChangeScoreAction += action;
+            // Initialize時に_onChangeScoreActionがあるか不明なので引数でActionを受け取る
+            _onChangeScoreAction?.Invoke(_score);
         }
         
         public void AddScore(int addScore)
@@ -31,7 +39,7 @@ namespace GoodCode
             }
             
             _score += addScore;
-            OnChangeScoreAction?.Invoke(_score);
+            _onChangeScoreAction?.Invoke(_score);
         }
 
         public void DecreaseScore(int decreaseScore)
@@ -43,11 +51,13 @@ namespace GoodCode
             }
 
             _score -= decreaseScore;
-            if (_score <= 0)
-            {
-                _score = 0;
-            }
-            OnChangeScoreAction?.Invoke(_score);
+            _score = Mathf.Max(0, _score);
+            _onChangeScoreAction?.Invoke(_score);
+        }
+        
+        ~ScoreManager()
+        {
+            _onChangeScoreAction = null;
         }
     }   
 }

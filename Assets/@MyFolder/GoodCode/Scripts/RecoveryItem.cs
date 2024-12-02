@@ -6,14 +6,14 @@ namespace GoodCode
     /// <summary>
     /// 回復アイテム
     /// </summary>
-    public class RecoveryItemManager : MonoBehaviour
+    public class RecoveryItem : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rb2d;
         private float _moveSpeed;
 
         private void Awake()
         {
-            _moveSpeed = 2;
+            _moveSpeed = DefineValues.RecoveryItemMoveSpeed;
         }
 
         private void FixedUpdate()
@@ -25,7 +25,7 @@ namespace GoodCode
         {
             if (other.TryGetComponent(out ICollisionItem collision))
             {
-                collision.RecoveryPlayer(2);
+                collision.RecoveryPlayer(DefineValues.RecoveryItemRecoveryValue);
                 Destroy(gameObject);
             }
         }

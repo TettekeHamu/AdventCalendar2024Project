@@ -14,12 +14,14 @@ namespace GoodCode
         
         public void UpdateScoreText(int score)
         {
-            _scoreText.text = $"Score : {score}";
+            // 数字の表示はLabelとValueを分ける
+            _scoreText.text = score.ToString();
         }
         
         public void UpdateHpText(int hp)
         {
-            _hpText.text = $"HP : {hp}";
+            // 数字の表示はLabelとValueを分ける
+            _hpText.text = hp.ToString();
         }
     }
 }

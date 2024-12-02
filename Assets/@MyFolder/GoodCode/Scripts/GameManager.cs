@@ -9,7 +9,7 @@ namespace GoodCode
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private PlayerManager _playerPrefab;
-        [SerializeField] private EnemyManager _enemyPrefab;
+        [SerializeField] private Enemy _enemyPrefab;
         [SerializeField] private EnemyCreatePoint[] _enemyCreatePoints;
         
         private void Start()

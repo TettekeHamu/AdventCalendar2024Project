@@ -28,9 +28,10 @@ namespace GoodCode
         {
             if (other.TryGetComponent(out ICollisionBullet collision))
             {
-                _scoreManager.AddScore(100);
-                collision.CollisionBullet();
+                // スコアの加算の数字は管理しやすいように定数化する
+                _scoreManager.AddScore(DefineValues.BulletScore);
+                collision.OnCollisionBullet();
             }
         }
-    }   
+    }
 }

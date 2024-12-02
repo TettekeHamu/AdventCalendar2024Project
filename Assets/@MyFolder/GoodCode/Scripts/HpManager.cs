@@ -24,6 +24,10 @@ namespace GoodCode
             OnChangeHpAction?.Invoke(_hp);
         }
         
+        /// <summary>
+        /// ダメージを受ける
+        /// </summary>
+        /// <returns>死亡したかどうか</returns>
         public bool TakeDamage(int damage)
         {
             if(damage < 0)
@@ -54,11 +58,8 @@ namespace GoodCode
             }
             
             _hp += recovery;
-            
-            if(_hp > _maxHp)
-            {
-                _hp = _maxHp;
-            }
+            // 最大値の制限はclampで行う
+            _hp = Mathf.Clamp(_hp, 0, _maxHp);
             
             OnChangeHpAction?.Invoke(_hp);
         }
