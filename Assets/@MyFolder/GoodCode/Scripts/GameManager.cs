@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GoodCode
 {
@@ -11,7 +13,12 @@ namespace GoodCode
         [SerializeField] private PlayerManager _playerPrefab;
         [SerializeField] private EnemyManager _enemyPrefab;
         [SerializeField] private EnemyCreatePoint[] _enemyCreatePoints;
-        
+
+        private void Awake()
+        {
+            Application.targetFrameRate = 60; 
+        }
+
         private void Start()
         {
             var player = Instantiate(_playerPrefab);

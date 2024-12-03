@@ -40,17 +40,15 @@ namespace GoodCode
         {
             _uiManager = FindObjectOfType<UIManager>();
             _scoreManager = new ScoreManager();
-            _scoreManager.OnChangeScoreAction += _uiManager.UpdateScoreText;
-            _scoreManager.Initialize();
-            _hpManager = new HpManager(10);
-            _hpManager.OnChangeHpAction += _uiManager.UpdateHpText;
-            _hpManager.Initialize();
+            _scoreManager.Initialize(_uiManager);
+            _hpManager = new HpManager(DefineValue.InitialHp);
+            _hpManager.Initialize(_uiManager);
             _moveSpeed = 5f;
         }
         
         public void TakeDamage(int damage)
         {
-            _scoreManager.DecreaseScore(1000);
+            _scoreManager.DecreaseScore(DefineValue.DamageScore);
             
             if(_hpManager.TakeDamage(damage))
             {

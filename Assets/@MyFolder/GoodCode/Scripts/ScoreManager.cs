@@ -9,16 +9,16 @@ namespace GoodCode
     public class ScoreManager 
     {
         private int _score;
-        
-        public event Action<int> OnChangeScoreAction; 
+        private event Action<int> OnChangeScoreAction; 
 
         public ScoreManager()
         {
             _score = 0;
         }
         
-        public void Initialize()
+        public void Initialize(UIManager uiManager)
         {
+            OnChangeScoreAction += uiManager.UpdateScoreText;
             OnChangeScoreAction?.Invoke(_score);
         }
         
@@ -26,7 +26,7 @@ namespace GoodCode
         {
             if (addScore < 0)
             {
-                Debug.Log("スコアに負の値は加算できません");
+                Debug.LogWarning("スコアに負の値は加算できません");
                 return;
             }
             
@@ -38,7 +38,7 @@ namespace GoodCode
         {
             if (decreaseScore < 0)
             {
-                Debug.Log("スコアに負の値は減算できません");
+                Debug.LogWarning("スコアに負の値は減算できません");
                 return;
             }
 

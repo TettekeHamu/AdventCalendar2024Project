@@ -26,9 +26,10 @@ namespace GoodCode
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            //書き方②
             if (other.TryGetComponent(out ICollisionBullet collision))
             {
-                _scoreManager.AddScore(100);
+                _scoreManager.AddScore(DefineValue.BulletScore);
                 collision.CollisionBullet();
             }
         }

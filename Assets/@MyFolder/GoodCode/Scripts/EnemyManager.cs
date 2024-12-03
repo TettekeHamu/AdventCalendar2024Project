@@ -11,7 +11,7 @@ namespace GoodCode
         [SerializeField] private Rigidbody2D _rb2d;
         private Transform _player;
         private float _moveSpeed;
-        private int _counter;
+        private float _counter;
 
         private void Awake()
         {
@@ -21,9 +21,9 @@ namespace GoodCode
 
         private void Update()
         {
-            if (_counter < 60)
+            if (_counter < 1)
             {
-                _counter++;
+                _counter += Time.deltaTime;
                 var direction = _player.transform.position - transform.position;
                 var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0, 0, angle - 90);
@@ -37,16 +37,18 @@ namespace GoodCode
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            //書き方①
             var player = other.GetComponent<ICollisionEnemy>();
             if (player == null) return;
-            player.TakeDamage(1);
+            player.TakeDamage(DefineValue.Damage);
             Destroy(gameObject);
         }
 
         public void CollisionBullet()
         {
-            var random = Random.Range(0, 5);
-            if(random == 0) Instantiate(_recoveryItemPrefab, transform.position, Quaternion.identity);
+            var dropRate = 20;
+            var random = Random.Range(0, 100);
+            if(dropRate < random) Instantiate(_recoveryItemPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }   

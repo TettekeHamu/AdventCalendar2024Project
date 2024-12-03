@@ -14,12 +14,12 @@ namespace GoodCode
         
         public void UpdateScoreText(int score)
         {
-            _scoreText.text = $"Score : {score}";
+            _scoreText.text = "Score : " + score.ToString();
         }
         
         public void UpdateHpText(int hp)
         {
-            _hpText.text = $"HP : {hp}";
+            _hpText.text = "HP : " + hp.ToString();
         }
     }
 }
