@@ -9,7 +9,7 @@ namespace GoodCode
     public class ScoreManager 
     {
         private int _score;
-        private event Action<int> OnChangeScoreAction; 
+        private event Action<int> _onChangeScoreAction; 
 
         public ScoreManager()
         {
@@ -18,8 +18,8 @@ namespace GoodCode
         
         public void Initialize(UIManager uiManager)
         {
-            OnChangeScoreAction += uiManager.UpdateScoreText;
-            OnChangeScoreAction?.Invoke(_score);
+            _onChangeScoreAction += uiManager.UpdateScoreText;
+            _onChangeScoreAction?.Invoke(_score);
         }
         
         public void AddScore(int addScore)
@@ -31,7 +31,7 @@ namespace GoodCode
             }
             
             _score += addScore;
-            OnChangeScoreAction?.Invoke(_score);
+            _onChangeScoreAction?.Invoke(_score);
         }
 
         public void DecreaseScore(int decreaseScore)
@@ -47,7 +47,7 @@ namespace GoodCode
             {
                 _score = 0;
             }
-            OnChangeScoreAction?.Invoke(_score);
+            _onChangeScoreAction?.Invoke(_score);
         }
     }   
 }

@@ -24,7 +24,7 @@ namespace GoodCode
         {
             if (other.TryGetComponent(out ICollisionItem collision))
             {
-                collision.RecoveryPlayer(2);
+                collision.RecoveryPlayer(DefineValue.Recovery);
                 Destroy(gameObject);
             }
         }

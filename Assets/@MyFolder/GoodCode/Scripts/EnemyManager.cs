@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GoodCode
 {
@@ -12,14 +14,30 @@ namespace GoodCode
         private Transform _player;
         private float _moveSpeed;
         private float _counter;
+        private event Action<EnemyManager> _onDestroyAction;
 
-        private void Awake()
+        private void OnTriggerEnter2D(Collider2D other)
         {
+            //書き方①
+            var player = other.GetComponent<ICollisionEnemy>();
+            if (player == null) return;
+            player.TakeDamage(DefineValue.Damage);
+            Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            _onDestroyAction?.Invoke(this);
+        }
+
+        public void Initialize(GameManager gameManager)
+        {
+            _onDestroyAction += gameManager.RemoveEnemy;
             _player = FindObjectOfType<PlayerManager>().transform;
             _moveSpeed = 3;
         }
-
-        private void Update()
+        
+        public void MyUpdate()
         {
             if (_counter < 1)
             {
@@ -30,18 +48,9 @@ namespace GoodCode
             }
         }
         
-        private void FixedUpdate()
+        public void MyFixedUpdate()
         {
             _rb2d.velocity= transform.up * _moveSpeed;
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            //書き方①
-            var player = other.GetComponent<ICollisionEnemy>();
-            if (player == null) return;
-            player.TakeDamage(DefineValue.Damage);
-            Destroy(gameObject);
         }
 
         public void CollisionBullet()

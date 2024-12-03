@@ -10,7 +10,7 @@ namespace GoodCode
     {
         private int _hp;
         private readonly int _maxHp;
-        private event Action<int> OnChangeHpAction;
+        private event Action<int> _onChangeHpAction;
         
         public HpManager(int hp)
         {
@@ -20,8 +20,8 @@ namespace GoodCode
         
         public void Initialize(UIManager uiManager)
         {
-            OnChangeHpAction += uiManager.UpdateHpText;
-            OnChangeHpAction?.Invoke(_hp);
+            _onChangeHpAction += uiManager.UpdateHpText;
+            _onChangeHpAction?.Invoke(_hp);
         }
         
         public bool TakeDamage(int damage)
@@ -36,12 +36,12 @@ namespace GoodCode
             
             if(_hp <= 0)
             {
-                OnChangeHpAction?.Invoke(0);
-                Debug.LogWarning("Hpが0以下になりました");
+                _onChangeHpAction?.Invoke(0);
+                Debug.Log("Hpが0以下になりました");
                 return true;
             }
 
-            OnChangeHpAction?.Invoke(_hp);
+            _onChangeHpAction?.Invoke(_hp);
             return false;
         }
         
@@ -60,7 +60,7 @@ namespace GoodCode
                 _hp = _maxHp;
             }
             
-            OnChangeHpAction?.Invoke(_hp);
+            _onChangeHpAction?.Invoke(_hp);
         }
     }   
 }
